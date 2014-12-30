@@ -8,7 +8,7 @@
 #include <QLineEdit>
 #include <QTextEdit>
 #include <math.h>
-#include "LinePanel.h"
+#include "linepanel.h"
 #include "mainview.h"
 #include "viewpanel.h"
 #include <QDebug>

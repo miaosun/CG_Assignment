@@ -39,10 +39,10 @@ void LinePanel::init() {
 
     //connect(startRotationButton, SIGNAL(clicked()), this, SLOT(showLineRotationPanel()));
 
-
     connect(startRotationButton, SIGNAL(clicked()), signalMapper, SLOT(map()));
     QString string = edt1->text()+" "+edt2->text()+" "+edt3->text()+" "+edt4->text();
     qDebug() << string;
+
     signalMapper->setMapping(startRotationButton, string);
     connect(signalMapper, SIGNAL(mapped(QString)), glView, SLOT(startLineRotation(QString)));
     //connect(signalMapper, SIGNAL(mapped(QString)),startRotationButton, SIGNAL(clicked()));

@@ -10,7 +10,7 @@
 #include <QPushButton>
 
 #include "mainview.h"
-#include "LinePanel.h"
+#include "linepanel.h"
 
 class ViewPanel : public QGLWidget {
     Q_OBJECT

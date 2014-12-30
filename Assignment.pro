@@ -28,8 +28,8 @@ HEADERS  += \
     mainview.h \
     scene.h \
     scenebasic.h \
-    LinePanel.h \
-    viewpanel.h
+    viewpanel.h \
+    linepanel.h
 
 macx: LIBS += -L$$PWD/../../../../../usr/local/lib/ -lGLEW
 
