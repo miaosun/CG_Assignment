@@ -1,8 +1,9 @@
 #include "linePanel.h"
-#include <iostream>
+
 LinePanel::LinePanel(MainView *glView, const QGLFormat &format, QWidget *parent) : QGLWidget(format, parent) {
     this->glView = glView;
     lPanel = new QWidget(parent);
+
 }
 
 void LinePanel::init() {
@@ -29,23 +30,35 @@ void LinePanel::init() {
     QPushButton *startRotationButton = new QPushButton("Start rotation");
     lPanelLayout->addWidget(startRotationButton);
 
-    float t = edt1->text().toFloat();
+    //float t = edt1->text().toFloat();
 
     //lPanelLayout->setAlignment(startRotationButton, Qt::AlignHCenter);
-    //QObject::connect(startRotationButton, SIGNAL(clicked()), glView, SLOT(startLineRotation(t)));
+    //QObject::connect(startRotationButton, SIGNAL(clicked()), glView, SLOT(startLineRotation()));
+
+    signalMapper = new QSignalMapper(startRotationButton);
+
+    //connect(startRotationButton, SIGNAL(clicked()), this, SLOT(showLineRotationPanel()));
+
+
+    connect(startRotationButton, SIGNAL(clicked()), signalMapper, SLOT(map()));
+    QString string = edt1->text()+" "+edt2->text()+" "+edt3->text()+" "+edt4->text();
+    qDebug() << string;
+    signalMapper->setMapping(startRotationButton, string);
+    connect(signalMapper, SIGNAL(mapped(QString)), glView, SLOT(startLineRotation(QString)));
+    //connect(signalMapper, SIGNAL(mapped(QString)),startRotationButton, SIGNAL(clicked()));
+    //connect(startRotationButton, SIGNAL(clicked()),glView, SLOT(startLineRotation(QString)));
+    //connect(signalMapper, SIGNAL(mapped(QString)),glView, SLOT(startLineRotation(QString)));
 
     //mainLayout->addWidget(lPanel);
-
     lPanel->hide();
-
-    std::cout << lPanel->isHidden();
-
 }
 
 void LinePanel::showLineRotationPanel() {
-
-    //if(lPanel->isHidden())
+    qDebug() << "Inside showLineRotationPanel()";
+    if(lPanel->isHidden())
         lPanel->show();
+    else
+        lPanel->hide();
 }
 
 QWidget* LinePanel::getLPanel() {

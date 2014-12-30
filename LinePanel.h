@@ -8,8 +8,12 @@
 #include <QHBoxLayout>
 #include <QVBoxLayout>
 #include <QPushButton>
+#include <QSignalMapper>
+#include <QString>
+#include <QDebug>
 
 #include "mainview.h"
+#include "viewpanel.h"
 
 class LinePanel : public QGLWidget {
     Q_OBJECT
@@ -17,6 +21,7 @@ class LinePanel : public QGLWidget {
 private:
     QWidget *lPanel;
     MainView *glView;
+    QSignalMapper* signalMapper;
 
 public:
     LinePanel(MainView *glView, const QGLFormat &format, QWidget *parent = 0);
@@ -25,6 +30,9 @@ public:
 
 public slots:
     void showLineRotationPanel();
+
+signals:
+    void clicked(QString);
 
 };
 

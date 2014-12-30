@@ -15,7 +15,6 @@ class MainView : public QGLWidget
 private:
     QTimer *timer;
     Scene *scene;
-    float t;
 
 public:
     MainView( const QGLFormat & format, QWidget *parent = 0 );
@@ -28,7 +27,7 @@ protected:
 public slots:
     void timerUpdate();
     void viewPosition();
-    void startLineRotation(float t);
+    void startLineRotation(QString string);
     void defaultView();
 };
 

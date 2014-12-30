@@ -3,6 +3,7 @@
 #include "glutils.h"
 #include <iostream>
 #include <cstdio>
+#include <QDebug>
 using std::cout;
 using std::endl;
 
@@ -62,12 +63,12 @@ void MainView::resizeGL(int w, int h ) {
     scene->resize(w,h);
 }
 
-void MainView::startLineRotation(float t) { //TODO: modify function
+void MainView::startLineRotation(QString string) { //TODO: modify function
     //QImage img = this->grabFrameBuffer(true);
     //img.save("screen.png", "PNG");
 
-    this->t = t;
-
+    qDebug() << "Inside startLineRotation(Qstring string)";
+    qDebug() << string;
 }
 
 void MainView::viewPosition() { //TODO: modify function
@@ -82,7 +83,7 @@ void MainView::defaultView() { //TODO:
 }
 
 void MainView::timerUpdate() {
-    scene->update(t);
+    scene->update(0.0f);
     updateGL();
 }
 
