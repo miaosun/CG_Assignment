@@ -23,17 +23,24 @@ private:
     MainView *glView;
     QSignalMapper* signalMapper;
 
+    QGridLayout *lPanelLayout;
+    QLineEdit *angleLine;
+    QLineEdit *xLine;
+    QLineEdit *yLine;
+    QLineEdit *zLine;
+    QString string;
 public:
     LinePanel(MainView *glView, const QGLFormat &format, QWidget *parent = 0);
     void init();
     QWidget* getLPanel();
+    QString getString();
 
 public slots:
     void showLineRotationPanel();
+    void setString();
 
 signals:
-    void clicked(QString);
-
+    //void clicked(QString);
 };
 
 #endif // LINEPANEL

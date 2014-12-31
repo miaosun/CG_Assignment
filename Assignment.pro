@@ -19,8 +19,8 @@ SOURCES += \
     main.cpp \
     mainview.cpp \
     scenebasic.cpp \
-    LinePanel.cpp \
-    viewpanel.cpp
+    viewpanel.cpp \
+    linepanel.cpp
 
 HEADERS  += \
     glslprogram.h \
