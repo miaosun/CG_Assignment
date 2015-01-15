@@ -40,13 +40,13 @@ void LinePanel::init() {
     //connect(startRotationButton, SIGNAL(clicked()), this, SLOT(showLineRotationPanel()));
 
 
-    connect(startRotationButton, SIGNAL(clicked()), signalMapper, SLOT(map()));
+    connect(startRotationButton, SIGNAL(clicked()), this, SLOT(setString()));
+
+    connect(this, SIGNAL(setStringFinished()), signalMapper, SLOT(map()));
     //QString string = angleLine->text()+" "+xLine->text()+" "+yLine->text()+" "+zLine->text();
     //qDebug() << string;
 
-    connect(startRotationButton, SIGNAL(clicked()), this, SLOT(setString()));
-
-    signalMapper->setMapping(startRotationButton, getString());
+    signalMapper->setMapping(this, getString());
     connect(signalMapper, SIGNAL(mapped(QString)), glView, SLOT(startLineRotation(QString)));
 
     //connect(signalMapper, SIGNAL(mapped(QString)),startRotationButton, SIGNAL(clicked()));
@@ -66,6 +66,7 @@ void LinePanel::setString() {
     qDebug() << "Inside setString()";
     this->string = angleLine->text()+" "+xLine->text()+" "+yLine->text()+" "+zLine->text();
     qDebug() << this->string;
+    emit setStringFinished();
 }
 
 void LinePanel::showLineRotationPanel() {

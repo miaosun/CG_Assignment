@@ -41,6 +41,7 @@ public slots:
 
 signals:
     //void clicked(QString);
+    void setStringFinished();
 };
 
 #endif // LINEPANEL
