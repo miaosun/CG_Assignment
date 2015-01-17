@@ -20,7 +20,8 @@ SOURCES += \
     mainview.cpp \
     scenebasic.cpp \
     viewpanel.cpp \
-    linepanel.cpp
+    linepanel.cpp \
+    mainwindow.cpp
 
 HEADERS  += \
     glslprogram.h \
@@ -29,7 +30,8 @@ HEADERS  += \
     scene.h \
     scenebasic.h \
     viewpanel.h \
-    linepanel.h
+    linepanel.h \
+    mainwindow.h
 
 macx: LIBS += -L$$PWD/../../../../../usr/local/lib/ -lGLEW
 

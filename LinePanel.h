@@ -11,6 +11,7 @@
 #include <QSignalMapper>
 #include <QString>
 #include <QDebug>
+#include <QDoubleSpinBox>
 
 #include "mainview.h"
 #include "viewpanel.h"
@@ -24,10 +25,10 @@ private:
     QSignalMapper* signalMapper;
 
     QGridLayout *lPanelLayout;
-    QLineEdit *angleLine;
-    QLineEdit *xLine;
-    QLineEdit *yLine;
-    QLineEdit *zLine;
+    QDoubleSpinBox *angleValue;
+    QDoubleSpinBox *xValue;
+    QDoubleSpinBox *yValue;
+    QDoubleSpinBox *zValue;
     QString string;
 public:
     LinePanel(MainView *glView, const QGLFormat &format, QWidget *parent = 0);
