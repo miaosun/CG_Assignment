@@ -4,42 +4,47 @@
 ViewPanel::ViewPanel(MainView *glView, const QGLFormat &format, QWidget *parent) : QGLWidget(format, parent) {
     this->glView = glView;
     vPanel = new QWidget(parent);
+
+    init();
 }
 
 void ViewPanel::init() {
-    QGridLayout *vPanelLayout = new QGridLayout();
+    vPanelLayout = new QGridLayout();
     vPanel->setLayout(vPanelLayout);
     vPanelLayout->setSpacing(20);
-    QLabel *eyeX = new QLabel("Eye position x");
-    vPanelLayout->addWidget(eyeX, 0, 0);
-    QLineEdit *e_edtX = new QLineEdit();
-    vPanelLayout->addWidget(e_edtX, 0, 1);
-    QLabel *eyeY = new QLabel("Eye position y");
-    vPanelLayout->addWidget(eyeY, 0, 2);
-    QLineEdit *e_edtY = new QLineEdit();
-    vPanelLayout->addWidget(e_edtY, 0, 3);
-    QLabel *eyeZ = new QLabel("Eye position z");
-    vPanelLayout->addWidget(eyeZ, 0, 4, 1, 1);
-    QLineEdit *e_edtZ = new QLineEdit();
-    vPanelLayout->addWidget(e_edtZ, 0, 5, 1, 1);
+    QLabel *eyeXLabel = new QLabel("Eye position x");
+    vPanelLayout->addWidget(eyeXLabel, 0, 0);
+    eyeXValue = new QDoubleSpinBox();
+    vPanelLayout->addWidget(eyeXValue, 0, 1);
+    QLabel *eyeYLabel = new QLabel("Eye position y");
+    vPanelLayout->addWidget(eyeYLabel, 0, 2);
+    eyeYValue = new QDoubleSpinBox();
+    vPanelLayout->addWidget(eyeYValue, 0, 3);
+    QLabel *eyeZLabel = new QLabel("Eye position z");
+    vPanelLayout->addWidget(eyeZLabel, 0, 4, 1, 1);
+    eyeZValue = new QDoubleSpinBox();
+    vPanelLayout->addWidget(eyeZValue, 0, 5, 1, 1);
 
-    QLabel *orientX = new QLabel("Orientation x");
-    vPanelLayout->addWidget(orientX, 1, 0, 1, 1);
-    QLineEdit *o_edtX = new QLineEdit();
-    vPanelLayout->addWidget(o_edtX, 1, 1, 1, 1);
-    QLabel *orientY = new QLabel("Orientation y");
-    vPanelLayout->addWidget(orientY, 1, 2, 1, 1);
-    QLineEdit *o_edtY = new QLineEdit();
-    vPanelLayout->addWidget(o_edtY, 1, 3, 1, 1);
-    QLabel *orientZ = new QLabel("Orientation z");
-    vPanelLayout->addWidget(orientZ, 1, 4, 1, 1);
-    QLineEdit *o_edtZ = new QLineEdit();
-    vPanelLayout->addWidget(o_edtZ, 1, 5, 1, 1);
+    QLabel *directXLabel = new QLabel("Orientation x");
+    vPanelLayout->addWidget(directXLabel, 1, 0, 1, 1);
+    directXValue = new QDoubleSpinBox();
+    vPanelLayout->addWidget(directXValue, 1, 1, 1, 1);
+    QLabel *directYLabel = new QLabel("Orientation y");
+    vPanelLayout->addWidget(directYLabel, 1, 2, 1, 1);
+    directYValue = new QDoubleSpinBox();
+    vPanelLayout->addWidget(directYValue, 1, 3, 1, 1);
+    QLabel *directZLabel = new QLabel("Orientation z");
+    vPanelLayout->addWidget(directZLabel, 1, 4, 1, 1);
+    directZValue = new QDoubleSpinBox();
+    vPanelLayout->addWidget(directZValue, 1, 5, 1, 1);
 
-    QPushButton *viewPositionButton = new QPushButton("View Position");
-    vPanelLayout->addWidget(viewPositionButton);
+    QPushButton *changeViewButton = new QPushButton("Change View Position");
+    vPanelLayout->addWidget(changeViewButton);
     //lPanelLayout->setAlignment(startRotationButton, Qt::AlignHCenter);
-    QObject::connect(viewPositionButton, SIGNAL(clicked()), glView, SLOT(viewPosition()));
+
+    QObject::connect(changeViewButton, SIGNAL(clicked()), this, SLOT(setValues()));
+
+    QObject::connect(changeViewButton, SIGNAL(clicked()), glView, SLOT(viewPosition()));
 
     //mainLayout->addWidget(vPanel);
 
@@ -57,4 +62,12 @@ void ViewPanel::showViewPositionPanel() {
 
 QWidget* ViewPanel::getVPanel() {
     return this->vPanel;
+}
+
+void ViewPanel::setValues()
+{
+    qDebug() << "Inside setValues() - ViewPanel";
+
+    glView->setEye(eyeXValue->text().toDouble(), eyeYValue->text().toDouble(), eyeZValue->text().toDouble());
+    glView->setDirection(directXValue->text().toDouble(), directYValue->text().toDouble(), directZValue->text().toDouble());
 }

@@ -7,7 +7,7 @@
 #include <QDebug>
 #include "mainwindow.h"
 
-MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)//, ui(new Ui::MainWindow)
+MainWindow::MainWindow(QWidget *parent) : QWidget(parent)//, ui(new Ui::MainWindow)
 {
     //ui->setupUi(this);
     init();
@@ -23,7 +23,7 @@ void MainWindow::init()
     QGLFormat format;
     format.setVersion(4,0);
     format.setProfile(QGLFormat::CoreProfile);
-    MainView *glView = new MainView(format);
+    glView = new MainView(format);
 
     QVBoxLayout *mainLayout = new QVBoxLayout(this);
     mainLayout->addWidget(glView);
@@ -32,11 +32,11 @@ void MainWindow::init()
     QHBoxLayout *cPanelLayout = new QHBoxLayout();
     cPanel->setLayout(cPanelLayout);
 
-    LinePanel *lPanel = new LinePanel(glView, format);
-    lPanel->init();
+    lPanel = new LinePanel(glView, format);
+    //lPanel->init();
 
-    ViewPanel *vPanel = new ViewPanel(glView, format);
-    vPanel->init();
+    vPanel = new ViewPanel(glView, format);
+    //vPanel->init();
 
     QPushButton *lRotationButton = new QPushButton("Line Rotation");
     cPanelLayout->addWidget(lRotationButton);

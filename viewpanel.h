@@ -19,6 +19,14 @@ private:
     QWidget *vPanel;
     MainView *glView;
 
+    QGridLayout *vPanelLayout;
+    QDoubleSpinBox *eyeXValue;
+    QDoubleSpinBox *eyeYValue;
+    QDoubleSpinBox *eyeZValue;
+    QDoubleSpinBox *directXValue;
+    QDoubleSpinBox *directYValue;
+    QDoubleSpinBox *directZValue;
+
 public:
     ViewPanel(MainView *glView, const QGLFormat &format, QWidget *parent = 0);
     void init();
@@ -26,6 +34,7 @@ public:
 
 public slots:
     void showViewPositionPanel();
+    void setValues();
 
 };
 #endif // VIEWPANEL

@@ -6,7 +6,7 @@
 #include <QGLWidget>
 #include <QTimer>
 
-#include "scene.h"
+#include "scenebasic.h"
 
 class MainView : public QGLWidget
 {
@@ -14,10 +14,13 @@ class MainView : public QGLWidget
 
 private:
     QTimer *timer;
-    Scene *scene;
-
+    SceneBasic *scene;
+    double eyeVs[3];
+    double directionVs[3];
 public:
     MainView( const QGLFormat & format, QWidget *parent = 0 );
+    void setEye(double x, double y, double z);
+    void setDirection(double x, double y, double z);
 
 protected:
     void initializeGL();

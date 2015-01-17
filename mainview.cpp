@@ -29,7 +29,6 @@ void MainView::initializeGL() {
     //////////////// PLUG IN SCENE HERE /////////////////
     scene = new SceneBasic();
     ////////////////////////////////////////////////////
-
     GLenum err = glewInit();
     if( GLEW_OK != err )
     {
@@ -72,10 +71,13 @@ void MainView::startLineRotation(QString string) { //TODO: modify function
 }
 
 void MainView::viewPosition() { //TODO: modify function
-    if( timer->isActive() )
+/*    if( timer->isActive() )
         timer->stop();
     else
         timer->start();
+*/
+    scene->setEye(eyeVs);
+    scene->setDirection(directionVs);
 }
 
 void MainView::defaultView() { //TODO:
@@ -87,3 +89,16 @@ void MainView::timerUpdate() {
     updateGL();
 }
 
+void MainView::setEye(double x, double y, double z)
+{
+    this->eyeVs[0] = x;
+    this->eyeVs[1] = y;
+    this->eyeVs[2] = z;
+}
+
+void MainView::setDirection(double x, double y, double z)
+{
+    this->directionVs[0] = x;
+    this->directionVs[1] = y;
+    this->directionVs[2] = z;
+}

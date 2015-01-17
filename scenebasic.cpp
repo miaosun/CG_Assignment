@@ -18,6 +18,9 @@ using std::ostringstream;
 
 SceneBasic::SceneBasic() : angle(0.0)
 {
+    eye = vec3(0.0f,0.0f,2.0f);
+    direction = vec3(0.0f,0.0f,-1.0f);
+
     readData("shader/scenebasic2.dat");
 }
 
@@ -169,10 +172,10 @@ void SceneBasic::initScene()
     prog.printActiveUniforms();
 
     model = mat4(1.0f);
-    float ang = 0; //-35.0;
+    //float ang = 0; //-35.0;
     //model *= glm::rotate(mat4(1.0f),ang, vec3(1.0f,0.0f,0.0f));
     //model *= glm::rotate(mat4(1.0f),-ang, vec3(0.0f,1.0f,0.0f));
-    view = glm::lookAt(vec3(0.0f,0.0f,2.0f), vec3(0.0f,0.0f,-1.0f), vec3(0.0f,1.0f,0.0f));
+    view = glm::lookAt(eye, direction, vec3(0.0f,1.0f,0.0f));
     projection = mat4(1.0f);
 
     glClearColor( 0.0, 0.0, 0.0, 1.0 );
@@ -272,4 +275,14 @@ void SceneBasic::printActiveAttribs(GLuint programHandle) {
     }
 
     free(name);
+}
+
+void SceneBasic::setEye(double eyeVs[])
+{
+    eye = vec3(eyeVs[0], eyeVs[1], eyeVs[2]);
+}
+
+void SceneBasic::setDirection(double directionVs[])
+{
+    direction = vec3(directionVs[0], directionVs[1], directionVs[2]);
 }
