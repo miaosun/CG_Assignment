@@ -36,6 +36,8 @@ public slots:
     void showViewPositionPanel();
     void setValues();
 
+signals:
+    void setValuesFinished();
 };
 #endif // VIEWPANEL
 

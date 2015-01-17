@@ -44,7 +44,7 @@ void ViewPanel::init() {
 
     QObject::connect(changeViewButton, SIGNAL(clicked()), this, SLOT(setValues()));
 
-    QObject::connect(changeViewButton, SIGNAL(clicked()), glView, SLOT(viewPosition()));
+    QObject::connect(this, SIGNAL(setValuesFinished()), glView, SLOT(viewPosition()));
 
     //mainLayout->addWidget(vPanel);
 
@@ -70,4 +70,6 @@ void ViewPanel::setValues()
 
     glView->setEye(eyeXValue->text().toDouble(), eyeYValue->text().toDouble(), eyeZValue->text().toDouble());
     glView->setDirection(directXValue->text().toDouble(), directYValue->text().toDouble(), directZValue->text().toDouble());
+
+    emit setValuesFinished();
 }

@@ -78,6 +78,12 @@ void MainView::viewPosition() { //TODO: modify function
 */
     scene->setEye(eyeVs);
     scene->setDirection(directionVs);
+    qDebug() << eyeVs[0];
+    qDebug() << eyeVs[1];
+    qDebug() << eyeVs[2];
+    qDebug() << directionVs[0];
+    qDebug() << directionVs[1];
+    qDebug() << directionVs[2];
 }
 
 void MainView::defaultView() { //TODO:
