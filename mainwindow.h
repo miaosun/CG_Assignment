@@ -2,6 +2,10 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include "linepanel.h"
+#include "viewpanel.h"
+#include "mainview.h"
+
 /*
 namespace Ui {
 class MainWindow;
@@ -18,10 +22,11 @@ private:
 
 public:
     explicit MainWindow(QWidget *parent = 0);
+    void init();
     ~MainWindow();
 
 private:
-    Ui::MainWindow *ui;
+    //Ui::MainWindow *ui;
 };
 
 #endif // MAINWINDOW_H

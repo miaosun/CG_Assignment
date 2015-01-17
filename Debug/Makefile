@@ -54,7 +54,8 @@ SOURCES       = ../glslprogram.cpp \
 		../mainview.cpp \
 		../scenebasic.cpp \
 		../viewpanel.cpp \
-		../linepanel.cpp moc_mainview.cpp \
+		../linepanel.cpp \
+		../mainwindow.cpp moc_mainview.cpp \
 		moc_viewpanel.cpp \
 		moc_linepanel.cpp \
 		moc_mainwindow.cpp
@@ -65,6 +66,7 @@ OBJECTS       = glslprogram.o \
 		scenebasic.o \
 		viewpanel.o \
 		linepanel.o \
+		mainwindow.o \
 		moc_mainview.o \
 		moc_viewpanel.o \
 		moc_linepanel.o \
@@ -210,7 +212,8 @@ DIST          = /Users/Qt/5.4/clang_64/mkspecs/features/spec_pre.prf \
 		../mainview.cpp \
 		../scenebasic.cpp \
 		../viewpanel.cpp \
-		../linepanel.cpp
+		../linepanel.cpp \
+		../mainwindow.cpp
 QMAKE_TARGET  = Assignment
 DESTDIR       = #avoid trailing-slash linebreak
 TARGET        = Assignment.app/Contents/MacOS/Assignment
@@ -544,7 +547,7 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents ../glslprogram.h ../glutils.h ../mainview.h ../scene.h ../scenebasic.h ../viewpanel.h ../linepanel.h ../mainwindow.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../glslprogram.cpp ../glutils.cpp ../main.cpp ../mainview.cpp ../scenebasic.cpp ../viewpanel.cpp ../linepanel.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../glslprogram.cpp ../glutils.cpp ../main.cpp ../mainview.cpp ../scenebasic.cpp ../viewpanel.cpp ../linepanel.cpp ../mainwindow.cpp $(DISTDIR)/
 
 
 clean:compiler_clean 
@@ -647,7 +650,39 @@ moc_linepanel.cpp: ../../../../Qt/5.4/clang_64/lib/QtWidgets.framework/Versions/
 		../linepanel.h
 	/Users/miaosun/Qt/5.4/clang_64/bin/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 -I/Users/miaosun/Qt/5.4/clang_64/mkspecs/macx-clang -I/Users/miaosun/Documents/QT_workspace/Assignment -I/usr/local/lib -I/Users/miaosun/Qt/5.4/clang_64/lib/QtOpenGL.framework/Headers -I/Users/miaosun/Qt/5.4/clang_64/lib/QtWidgets.framework/Headers -I/Users/miaosun/Qt/5.4/clang_64/lib/QtGui.framework/Headers -I/Users/miaosun/Qt/5.4/clang_64/lib/QtCore.framework/Headers -I. -F/Users/miaosun/Qt/5.4/clang_64/lib ../linepanel.h -o moc_linepanel.cpp
 
-moc_mainwindow.cpp: ../mainwindow.h
+moc_mainwindow.cpp: ../../../../Qt/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QMainWindow \
+		../../../../Qt/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qmainwindow.h \
+		../linepanel.h \
+		../../../../Qt/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QLabel \
+		../../../../Qt/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qlabel.h \
+		../../../../Qt/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QLineEdit \
+		../../../../Qt/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qlineedit.h \
+		../../../../Qt/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QTextEdit \
+		../../../../Qt/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qtextedit.h \
+		../../../../Qt/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QWidget \
+		../../../../Qt/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qwidget.h \
+		../../../../Qt/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QHBoxLayout \
+		../../../../Qt/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qboxlayout.h \
+		../../../../Qt/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QVBoxLayout \
+		../../../../Qt/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QPushButton \
+		../../../../Qt/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qpushbutton.h \
+		../../../../Qt/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QSignalMapper \
+		../../../../Qt/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qsignalmapper.h \
+		../../../../Qt/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QString \
+		../../../../Qt/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qstring.h \
+		../../../../Qt/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QDebug \
+		../../../../Qt/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qdebug.h \
+		../../../../Qt/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QDoubleSpinBox \
+		../../../../Qt/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qspinbox.h \
+		../mainview.h \
+		/usr/include/GL/glew.h \
+		../../../../Qt/5.4/clang_64/lib/QtOpenGL.framework/Versions/5/Headers/QGLWidget \
+		../../../../Qt/5.4/clang_64/lib/QtOpenGL.framework/Versions/5/Headers/qgl.h \
+		../../../../Qt/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QTimer \
+		../../../../Qt/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qtimer.h \
+		../scene.h \
+		../viewpanel.h \
+		../mainwindow.h
 	/Users/miaosun/Qt/5.4/clang_64/bin/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 -I/Users/miaosun/Qt/5.4/clang_64/mkspecs/macx-clang -I/Users/miaosun/Documents/QT_workspace/Assignment -I/usr/local/lib -I/Users/miaosun/Qt/5.4/clang_64/lib/QtOpenGL.framework/Headers -I/Users/miaosun/Qt/5.4/clang_64/lib/QtWidgets.framework/Headers -I/Users/miaosun/Qt/5.4/clang_64/lib/QtGui.framework/Headers -I/Users/miaosun/Qt/5.4/clang_64/lib/QtCore.framework/Headers -I. -F/Users/miaosun/Qt/5.4/clang_64/lib ../mainwindow.h -o moc_mainwindow.cpp
 
 compiler_moc_source_make_all:
@@ -763,21 +798,22 @@ main.o: ../main.cpp ../../../../Qt/5.4/clang_64/lib/QtWidgets.framework/Versions
 		../../../../Qt/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QVBoxLayout \
 		../../../../Qt/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QPushButton \
 		../../../../Qt/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qpushbutton.h \
-		../../../../Qt/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QMainWindow \
-		../../../../Qt/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qmainwindow.h \
 		../../../../Qt/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QLabel \
 		../../../../Qt/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qlabel.h \
+		../../../../Qt/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QDebug \
+		../../../../Qt/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qdebug.h \
+		../mainwindow.h \
+		../../../../Qt/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QMainWindow \
+		../../../../Qt/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qmainwindow.h \
+		../linepanel.h \
 		../../../../Qt/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QLineEdit \
 		../../../../Qt/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qlineedit.h \
 		../../../../Qt/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QTextEdit \
 		../../../../Qt/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qtextedit.h \
-		../linepanel.h \
 		../../../../Qt/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QSignalMapper \
 		../../../../Qt/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qsignalmapper.h \
 		../../../../Qt/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QString \
 		../../../../Qt/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qstring.h \
-		../../../../Qt/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QDebug \
-		../../../../Qt/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qdebug.h \
 		../../../../Qt/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QDoubleSpinBox \
 		../../../../Qt/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qspinbox.h \
 		../mainview.h \
@@ -1040,6 +1076,41 @@ linepanel.o: ../linepanel.cpp ../linepanel.h \
 		../scene.h \
 		../viewpanel.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o linepanel.o ../linepanel.cpp
+
+mainwindow.o: ../mainwindow.cpp ../../../../Qt/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QWidget \
+		../../../../Qt/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qwidget.h \
+		../../../../Qt/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QHBoxLayout \
+		../../../../Qt/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qboxlayout.h \
+		../../../../Qt/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QVBoxLayout \
+		../../../../Qt/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QPushButton \
+		../../../../Qt/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qpushbutton.h \
+		../../../../Qt/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QLabel \
+		../../../../Qt/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qlabel.h \
+		../../../../Qt/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QDebug \
+		../../../../Qt/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qdebug.h \
+		../mainwindow.h \
+		../../../../Qt/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QMainWindow \
+		../../../../Qt/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qmainwindow.h \
+		../linepanel.h \
+		../../../../Qt/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QLineEdit \
+		../../../../Qt/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qlineedit.h \
+		../../../../Qt/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QTextEdit \
+		../../../../Qt/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qtextedit.h \
+		../../../../Qt/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QSignalMapper \
+		../../../../Qt/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qsignalmapper.h \
+		../../../../Qt/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QString \
+		../../../../Qt/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qstring.h \
+		../../../../Qt/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QDoubleSpinBox \
+		../../../../Qt/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qspinbox.h \
+		../mainview.h \
+		/usr/include/GL/glew.h \
+		../../../../Qt/5.4/clang_64/lib/QtOpenGL.framework/Versions/5/Headers/QGLWidget \
+		../../../../Qt/5.4/clang_64/lib/QtOpenGL.framework/Versions/5/Headers/qgl.h \
+		../../../../Qt/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QTimer \
+		../../../../Qt/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qtimer.h \
+		../scene.h \
+		../viewpanel.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o ../mainwindow.cpp
 
 moc_mainview.o: moc_mainview.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_mainview.o moc_mainview.cpp
