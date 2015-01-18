@@ -1,16 +1,15 @@
 
 #include "viewpanel.h"
 
-ViewPanel::ViewPanel(MainView *glView, const QGLFormat &format, QWidget *parent) : QGLWidget(format, parent) {
+ViewPanel::ViewPanel(MainView *glView) : QWidget() {
     this->glView = glView;
-    vPanel = new QWidget(parent);
 
     init();
 }
 
 void ViewPanel::init() {
     vPanelLayout = new QGridLayout();
-    vPanel->setLayout(vPanelLayout);
+    this->setLayout(vPanelLayout);
     vPanelLayout->setSpacing(20);
     QLabel *eyeXLabel = new QLabel("Eye position x");
     vPanelLayout->addWidget(eyeXLabel, 0, 0);
@@ -46,22 +45,15 @@ void ViewPanel::init() {
 
     QObject::connect(this, SIGNAL(setValuesFinished()), glView, SLOT(viewPosition()));
 
-    //mainLayout->addWidget(vPanel);
-
-    vPanel->hide();
-
+    this->hide();
 }
 
 void ViewPanel::showViewPositionPanel() {
 
-    if(vPanel->isHidden())
-        vPanel->show();
+    if(this->isHidden())
+        this->show();
     else
-        vPanel->hide();
-}
-
-QWidget* ViewPanel::getVPanel() {
-    return this->vPanel;
+        this->hide();
 }
 
 /*

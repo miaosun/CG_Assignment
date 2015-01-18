@@ -1,8 +1,7 @@
 #include "linePanel.h"
 
-LinePanel::LinePanel(MainView *glView, const QGLFormat &format, QWidget *parent) : QGLWidget(format, parent) {
+LinePanel::LinePanel(MainView *glView) : QWidget() {
     this->glView = glView;
-    lPanel = new QWidget(parent);
     this->string = "";
 
     init();
@@ -10,7 +9,7 @@ LinePanel::LinePanel(MainView *glView, const QGLFormat &format, QWidget *parent)
 
 void LinePanel::init() {
     lPanelLayout = new QGridLayout();
-    lPanel->setLayout(lPanelLayout);
+    this->setLayout(lPanelLayout);
     lPanelLayout->setSpacing(20);
     QLabel *angle = new QLabel("Angle");
     lPanelLayout->addWidget(angle, 0, 0);
@@ -43,12 +42,7 @@ void LinePanel::init() {
 
     connect(this, SIGNAL(setValueFinished()), glView, SLOT(startLineRotation()));
 
-    lPanel->hide();
-}
-
-QString LinePanel::getString() {
-    qDebug() << "Inside getString()" << this->string;
-    return this->string;
+    this->hide();
 }
 
 void LinePanel::setValues() {
@@ -59,12 +53,8 @@ void LinePanel::setValues() {
 }
 
 void LinePanel::showLineRotationPanel() {
-    if(lPanel->isHidden())
-        lPanel->show();
+    if(this->isHidden())
+        this->show();
     else
-        lPanel->hide();
-}
-
-QWidget* LinePanel::getLPanel() {
-    return this->lPanel;
+        this->hide();
 }

@@ -16,13 +16,11 @@
 #include "mainview.h"
 #include "viewpanel.h"
 
-class LinePanel : public QGLWidget {
+class LinePanel : public QWidget {
     Q_OBJECT
 
 private:
-    QWidget *lPanel;
     MainView *glView;
-    QSignalMapper* signalMapper;
 
     QGridLayout *lPanelLayout;
     QDoubleSpinBox *angleValue;
@@ -31,10 +29,8 @@ private:
     QDoubleSpinBox *zValue;
     QString string;
 public:
-    LinePanel(MainView *glView, const QGLFormat &format, QWidget *parent = 0);
+    LinePanel(MainView *glView);
     void init();
-    QWidget* getLPanel();
-    QString getString();
 
 public slots:
     void showLineRotationPanel();

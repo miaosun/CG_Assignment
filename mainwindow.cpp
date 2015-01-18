@@ -32,11 +32,9 @@ void MainWindow::init()
     QHBoxLayout *cPanelLayout = new QHBoxLayout();
     cPanel->setLayout(cPanelLayout);
 
-    lPanel = new LinePanel(glView, format);
-    //lPanel->init();
+    lPanel = new LinePanel(glView);
 
-    vPanel = new ViewPanel(glView, format);
-    //vPanel->init();
+    vPanel = new ViewPanel(glView);
 
     QPushButton *lRotationButton = new QPushButton("Line Rotation");
     cPanelLayout->addWidget(lRotationButton);
@@ -63,8 +61,8 @@ void MainWindow::init()
     // end line separator
     //
 
-    mainLayout->addWidget(lPanel->getLPanel());
-    mainLayout->addWidget(vPanel->getVPanel());
+    mainLayout->addWidget(lPanel);
+    mainLayout->addWidget(vPanel);
 
     mainLayout->setSizeConstraint(QLayout::SetFixedSize);
 
@@ -73,22 +71,27 @@ void MainWindow::init()
 }
 
 void MainWindow::showLineRotationPanel() {
-    if(!vPanel->getVPanel()->isHidden())
-        vPanel->getVPanel()->hide();
+    if(!vPanel->isHidden())
+        vPanel->hide();
 
-    if(lPanel->getLPanel()->isHidden())
-        lPanel->getLPanel()->show();
+    if(lPanel->isHidden())
+        lPanel->show();
     else
-        lPanel->getLPanel()->hide();
+        lPanel->hide();
+
+//    vPanel->hide();
+//    lPanel->show();
 }
 
 void MainWindow::showViewPositionPanel() {
+    if(!lPanel->isHidden())
+        lPanel->hide();
 
-    if(!lPanel->getLPanel()->isHidden())
-        lPanel->getLPanel()->hide();
-
-    if(vPanel->getVPanel()->isHidden())
-        vPanel->getVPanel()->show();
+    if(vPanel->isHidden())
+        vPanel->show();
     else
-        vPanel->getVPanel()->hide();
+        vPanel->hide();
+
+//    lPanel->hide();
+//    vPanel->show();
 }

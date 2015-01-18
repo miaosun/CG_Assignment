@@ -12,11 +12,10 @@
 #include "mainview.h"
 #include "linepanel.h"
 
-class ViewPanel : public QGLWidget {
+class ViewPanel : public QWidget {
     Q_OBJECT
 
 private:
-    QWidget *vPanel;
     MainView *glView;
 
     QGridLayout *vPanelLayout;
@@ -28,9 +27,8 @@ private:
     QDoubleSpinBox *directZValue;
 
 public:
-    ViewPanel(MainView *glView, const QGLFormat &format, QWidget *parent = 0);
+    ViewPanel(MainView *glView);
     void init();
-    QWidget* getVPanel();
 
 public slots:
     void showViewPositionPanel();

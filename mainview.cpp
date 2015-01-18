@@ -63,30 +63,21 @@ void MainView::resizeGL(int w, int h ) {
 }
 
 void MainView::startLineRotation() { //TODO: modify function
-    //QImage img = this->grabFrameBuffer(true);
-    //img.save("screen.png", "PNG");
 
-    qDebug() << "Inside startLineRotation(Qstring string)";
+    qDebug() << "Inside startLineRotation()";
     scene->setLine(line);
 }
 
-void MainView::viewPosition() { //TODO: modify function
-/*    if( timer->isActive() )
-        timer->stop();
-    else
-        timer->start();
-*/
+void MainView::viewPosition() {
     scene->setEye(eyeVs);
     scene->setDirection(directionVs);
-
 }
 
-void MainView::defaultView() { //TODO:
+void MainView::defaultView() {
     setEye(0, 0, 2);
     setDirection(0, 0, -1);
     scene->setEye(eyeVs);
     scene->setDirection(directionVs);
-
 }
 
 void MainView::timerUpdate() {
