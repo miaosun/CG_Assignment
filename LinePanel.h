@@ -38,11 +38,10 @@ public:
 
 public slots:
     void showLineRotationPanel();
-    void setString();
+    void setValues();
 
 signals:
-    //void clicked(QString);
-    void setStringFinished();
+    void setValueFinished();
 };
 
 #endif // LINEPANEL

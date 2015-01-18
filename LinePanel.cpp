@@ -36,20 +36,12 @@ void LinePanel::init() {
     zValue->setSingleStep(0.5);
     lPanelLayout->addWidget(zValue, 1, 3, 1, 1);
 
-    QPushButton *applyButton = new QPushButton("Apply");
-    lPanelLayout->addWidget(applyButton);
-
     QPushButton *startRotationButton = new QPushButton("Start rotation");
     lPanelLayout->addWidget(startRotationButton);
 
-    signalMapper = new QSignalMapper(startRotationButton);
+    connect(startRotationButton, SIGNAL(clicked()), this, SLOT(setValues()));
 
-    connect(applyButton, SIGNAL(clicked()), this, SLOT(setString()));
-
-    connect(startRotationButton, SIGNAL(clicked()), signalMapper, SLOT(map()));
-
-    signalMapper->setMapping(startRotationButton, QString("blablabla"));
-    connect(signalMapper, SIGNAL(mapped(QString)), glView, SLOT(startLineRotation(QString)));
+    connect(this, SIGNAL(setValueFinished()), glView, SLOT(startLineRotation()));
 
     lPanel->hide();
 }
@@ -59,11 +51,11 @@ QString LinePanel::getString() {
     return this->string;
 }
 
-void LinePanel::setString() {
-    qDebug() << "Inside setString()";
-    this->string = angleValue->text()+" "+xValue->text()+" "+yValue->text()+" "+zValue->text();
-    qDebug() << this->string;
-    emit setStringFinished();
+void LinePanel::setValues() {
+    qDebug() << "Inside setValues() - LinePanel";
+    glView->setLine(xValue->value(), yValue->value(), zValue->value());
+
+    emit setValueFinished();
 }
 
 void LinePanel::showLineRotationPanel() {

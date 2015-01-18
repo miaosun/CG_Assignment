@@ -19,8 +19,8 @@
 
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_MainView_t {
-    QByteArrayData data[7];
-    char stringdata[72];
+    QByteArrayData data[6];
+    char stringdata[65];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -34,12 +34,11 @@ QT_MOC_LITERAL(1, 9, 11), // "timerUpdate"
 QT_MOC_LITERAL(2, 21, 0), // ""
 QT_MOC_LITERAL(3, 22, 12), // "viewPosition"
 QT_MOC_LITERAL(4, 35, 17), // "startLineRotation"
-QT_MOC_LITERAL(5, 53, 6), // "string"
-QT_MOC_LITERAL(6, 60, 11) // "defaultView"
+QT_MOC_LITERAL(5, 53, 11) // "defaultView"
 
     },
     "MainView\0timerUpdate\0\0viewPosition\0"
-    "startLineRotation\0string\0defaultView"
+    "startLineRotation\0defaultView"
 };
 #undef QT_MOC_LITERAL
 
@@ -59,13 +58,13 @@ static const uint qt_meta_data_MainView[] = {
  // slots: name, argc, parameters, tag, flags
        1,    0,   34,    2, 0x0a /* Public */,
        3,    0,   35,    2, 0x0a /* Public */,
-       4,    1,   36,    2, 0x0a /* Public */,
-       6,    0,   39,    2, 0x0a /* Public */,
+       4,    0,   36,    2, 0x0a /* Public */,
+       5,    0,   37,    2, 0x0a /* Public */,
 
  // slots: parameters
     QMetaType::Void,
     QMetaType::Void,
-    QMetaType::Void, QMetaType::QString,    5,
+    QMetaType::Void,
     QMetaType::Void,
 
        0        // eod
@@ -78,11 +77,12 @@ void MainView::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, vo
         switch (_id) {
         case 0: _t->timerUpdate(); break;
         case 1: _t->viewPosition(); break;
-        case 2: _t->startLineRotation((*reinterpret_cast< QString(*)>(_a[1]))); break;
+        case 2: _t->startLineRotation(); break;
         case 3: _t->defaultView(); break;
         default: ;
         }
     }
+    Q_UNUSED(_a);
 }
 
 const QMetaObject MainView::staticMetaObject = {

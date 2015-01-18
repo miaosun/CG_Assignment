@@ -17,10 +17,12 @@ private:
     SceneBasic *scene;
     double eyeVs[3];
     double directionVs[3];
+    double line[3];
 public:
     MainView( const QGLFormat & format, QWidget *parent = 0 );
     void setEye(double x, double y, double z);
     void setDirection(double x, double y, double z);
+    void setLine(double x, double y, double z);
 
 protected:
     void initializeGL();
@@ -30,7 +32,7 @@ protected:
 public slots:
     void timerUpdate();
     void viewPosition();
-    void startLineRotation(QString string);
+    void startLineRotation();
     void defaultView();
 };
 

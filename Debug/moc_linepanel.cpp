@@ -20,7 +20,7 @@
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_LinePanel_t {
     QByteArrayData data[5];
-    char stringdata[61];
+    char stringdata[60];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -30,14 +30,14 @@ struct qt_meta_stringdata_LinePanel_t {
 static const qt_meta_stringdata_LinePanel_t qt_meta_stringdata_LinePanel = {
     {
 QT_MOC_LITERAL(0, 0, 9), // "LinePanel"
-QT_MOC_LITERAL(1, 10, 17), // "setStringFinished"
-QT_MOC_LITERAL(2, 28, 0), // ""
-QT_MOC_LITERAL(3, 29, 21), // "showLineRotationPanel"
-QT_MOC_LITERAL(4, 51, 9) // "setString"
+QT_MOC_LITERAL(1, 10, 16), // "setValueFinished"
+QT_MOC_LITERAL(2, 27, 0), // ""
+QT_MOC_LITERAL(3, 28, 21), // "showLineRotationPanel"
+QT_MOC_LITERAL(4, 50, 9) // "setValues"
 
     },
-    "LinePanel\0setStringFinished\0\0"
-    "showLineRotationPanel\0setString"
+    "LinePanel\0setValueFinished\0\0"
+    "showLineRotationPanel\0setValues"
 };
 #undef QT_MOC_LITERAL
 
@@ -76,9 +76,9 @@ void LinePanel::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, v
     if (_c == QMetaObject::InvokeMetaMethod) {
         LinePanel *_t = static_cast<LinePanel *>(_o);
         switch (_id) {
-        case 0: _t->setStringFinished(); break;
+        case 0: _t->setValueFinished(); break;
         case 1: _t->showLineRotationPanel(); break;
-        case 2: _t->setString(); break;
+        case 2: _t->setValues(); break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {
@@ -86,7 +86,7 @@ void LinePanel::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, v
         void **func = reinterpret_cast<void **>(_a[1]);
         {
             typedef void (LinePanel::*_t)();
-            if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&LinePanel::setStringFinished)) {
+            if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&LinePanel::setValueFinished)) {
                 *result = 0;
             }
         }
@@ -131,7 +131,7 @@ int LinePanel::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
 }
 
 // SIGNAL 0
-void LinePanel::setStringFinished()
+void LinePanel::setValueFinished()
 {
     QMetaObject::activate(this, &staticMetaObject, 0, Q_NULLPTR);
 }

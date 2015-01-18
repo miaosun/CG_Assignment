@@ -14,8 +14,11 @@ private:
     GLuint vboHandles[2];
     GLuint vaoHandle;
     float angle;
+
     vec3 eye;
     vec3 direction;
+    vec3 line;
+
     mat4 rotationMatrix;
     GLSLProgram prog;
 
@@ -42,6 +45,7 @@ public:
 
     void setEye(double eyeVs[]);
     void setDirection(double directionVs[]);
+    void setLine(double lineVs[]);
 };
 
 #endif // SCENEBASIC_H

@@ -171,11 +171,11 @@ void SceneBasic::initScene()
 
     prog.printActiveUniforms();
 
-    model = mat4(1.0f);
+    //model = mat4(1.0f);
     //float ang = 0; //-35.0;
     //model *= glm::rotate(mat4(1.0f),ang, vec3(1.0f,0.0f,0.0f));
     //model *= glm::rotate(mat4(1.0f),-ang, vec3(0.0f,1.0f,0.0f));
-    view = glm::lookAt(eye, direction, vec3(0.0f,1.0f,0.0f));
+    //view = glm::lookAt(eye, direction, vec3(0.0f,1.0f,0.0f));
     projection = mat4(1.0f);
 
     glClearColor( 0.0, 0.0, 0.0, 1.0 );
@@ -196,7 +196,11 @@ void SceneBasic::update( float t )
 
 void SceneBasic::setMatrices()
 {
+    model = mat4(1.0f);
+    view = glm::lookAt(eye, direction, vec3(0.0f,1.0f,0.0f));
+
     rotationMatrix = glm::rotate(mat4(1.0f),glm::radians(angle),vec3(1.0f,1.0f,0.0f));
+
     mat4 mv = view * model;
     prog.setUniform("ModelViewMatrix", mv);
     prog.setUniform("MVP", projection * mv);
@@ -285,4 +289,9 @@ void SceneBasic::setEye(double eyeVs[])
 void SceneBasic::setDirection(double directionVs[])
 {
     direction = vec3(directionVs[0], directionVs[1], directionVs[2]);
+}
+
+void SceneBasic::setLine(double lineVs[])
+{
+    line = vec3(lineVs[0], lineVs[1], lineVs[2]);
 }

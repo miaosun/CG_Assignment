@@ -64,12 +64,13 @@ QWidget* ViewPanel::getVPanel() {
     return this->vPanel;
 }
 
+/*
+ * get the values of input and then emit setValuesFinished signal.
+ */
 void ViewPanel::setValues()
 {
-    qDebug() << "Inside setValues() - ViewPanel";
-
-    glView->setEye(eyeXValue->text().toDouble(), eyeYValue->text().toDouble(), eyeZValue->text().toDouble());
-    glView->setDirection(directXValue->text().toDouble(), directYValue->text().toDouble(), directZValue->text().toDouble());
+    glView->setEye(eyeXValue->value(), eyeYValue->value(), eyeZValue->value());
+    glView->setDirection(directXValue->value(), directYValue->value(), directZValue->value());
 
     emit setValuesFinished();
 }

@@ -62,12 +62,12 @@ void MainView::resizeGL(int w, int h ) {
     scene->resize(w,h);
 }
 
-void MainView::startLineRotation(QString string) { //TODO: modify function
+void MainView::startLineRotation() { //TODO: modify function
     //QImage img = this->grabFrameBuffer(true);
     //img.save("screen.png", "PNG");
 
     qDebug() << "Inside startLineRotation(Qstring string)";
-    qDebug() << string;
+    scene->setLine(line);
 }
 
 void MainView::viewPosition() { //TODO: modify function
@@ -78,15 +78,14 @@ void MainView::viewPosition() { //TODO: modify function
 */
     scene->setEye(eyeVs);
     scene->setDirection(directionVs);
-    qDebug() << eyeVs[0];
-    qDebug() << eyeVs[1];
-    qDebug() << eyeVs[2];
-    qDebug() << directionVs[0];
-    qDebug() << directionVs[1];
-    qDebug() << directionVs[2];
+
 }
 
 void MainView::defaultView() { //TODO:
+    setEye(0, 0, 2);
+    setDirection(0, 0, -1);
+    scene->setEye(eyeVs);
+    scene->setDirection(directionVs);
 
 }
 
@@ -107,4 +106,11 @@ void MainView::setDirection(double x, double y, double z)
     this->directionVs[0] = x;
     this->directionVs[1] = y;
     this->directionVs[2] = z;
+}
+
+void MainView::setLine(double x, double y, double z)
+{
+    this->line[0] = x;
+    this->line[1] = y;
+    this->line[2] = z;
 }
