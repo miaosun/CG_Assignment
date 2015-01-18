@@ -25,6 +25,10 @@ public:
     void init();
     ~MainWindow();
 
+public slots:
+    void showLineRotationPanel();
+    void showViewPositionPanel();
+
 private:
     //Ui::MainWindow *ui;
 };

@@ -40,11 +40,11 @@ void MainWindow::init()
 
     QPushButton *lRotationButton = new QPushButton("Line Rotation");
     cPanelLayout->addWidget(lRotationButton);
-    QObject::connect( lRotationButton, SIGNAL(clicked()), lPanel, SLOT(showLineRotationPanel()) );
+    QObject::connect( lRotationButton, SIGNAL(clicked()), this, SLOT(showLineRotationPanel()) );
 
     QPushButton *vPositionButton = new QPushButton("View Position");
     cPanelLayout->addWidget(vPositionButton);
-    QObject::connect(vPositionButton, SIGNAL(clicked()), vPanel, SLOT(showViewPositionPanel()) );
+    QObject::connect(vPositionButton, SIGNAL(clicked()), this, SLOT(showViewPositionPanel()) );
 
     QPushButton *defaultViewButton = new QPushButton("Default Position");
     cPanelLayout->addWidget(defaultViewButton);
@@ -66,7 +66,29 @@ void MainWindow::init()
     mainLayout->addWidget(lPanel->getLPanel());
     mainLayout->addWidget(vPanel->getVPanel());
 
+    mainLayout->setSizeConstraint(QLayout::SetFixedSize);
 
     this->setLayout(mainLayout);
     this->setWindowTitle("CG Assignment");
+}
+
+void MainWindow::showLineRotationPanel() {
+    if(!vPanel->getVPanel()->isHidden())
+        vPanel->getVPanel()->hide();
+
+    if(lPanel->getLPanel()->isHidden())
+        lPanel->getLPanel()->show();
+    else
+        lPanel->getLPanel()->hide();
+}
+
+void MainWindow::showViewPositionPanel() {
+
+    if(!lPanel->getLPanel()->isHidden())
+        lPanel->getLPanel()->hide();
+
+    if(vPanel->getVPanel()->isHidden())
+        vPanel->getVPanel()->show();
+    else
+        vPanel->getVPanel()->hide();
 }

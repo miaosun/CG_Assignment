@@ -295,3 +295,8 @@ void SceneBasic::setLine(double lineVs[])
 {
     line = vec3(lineVs[0], lineVs[1], lineVs[2]);
 }
+
+void SceneBasic::setAngle(double angle)
+{
+    this->angle = angle;
+}

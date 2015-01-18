@@ -59,7 +59,6 @@ void LinePanel::setValues() {
 }
 
 void LinePanel::showLineRotationPanel() {
-    qDebug() << "Inside showLineRotationPanel()";
     if(lPanel->isHidden())
         lPanel->show();
     else

@@ -46,6 +46,7 @@ public:
     void setEye(double eyeVs[]);
     void setDirection(double directionVs[]);
     void setLine(double lineVs[]);
+    void setAngle(double angle);
 };
 
 #endif // SCENEBASIC_H
