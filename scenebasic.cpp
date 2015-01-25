@@ -4,7 +4,7 @@
 #include <cstdlib>
 
 #include <iostream>
-
+#include <QDebug>
 #include <fstream>
 using std::ifstream;
 
@@ -20,6 +20,9 @@ SceneBasic::SceneBasic() : angle(0.0)
 {
     eye = vec3(0.0f,0.0f,2.0f);
     direction = vec3(0.0f,0.0f,-1.0f);
+
+    bVector = vec3(0.0f, 0.0f, 0.0f);
+    dVector = vec3(1.0f, 0.0f, 1.0f);
 
     readData("shader/scenebasic2.dat");
 }
@@ -44,8 +47,9 @@ void SceneBasic::CreateVBO()
     GLuint vboHandles[2];
     glGenBuffers(2, vboHandles);
 
-    GLuint positionBufferHandle = vboHandles[0];
+    positionBufferHandle = vboHandles[0];
     GLuint colorBufferHandle = vboHandles[1];
+    //lineBufferHandle = vboHandles[2];
 
     // bind positionBufferHandle to GL_ARRAY_BUFFER buffer object target
     glBindBuffer(GL_ARRAY_BUFFER, positionBufferHandle);
@@ -55,6 +59,10 @@ void SceneBasic::CreateVBO()
      // bind colorBufferHandle to GL_ARRAY_BUFFER target
     glBindBuffer(GL_ARRAY_BUFFER, colorBufferHandle);
     glBufferData(GL_ARRAY_BUFFER, 108 * sizeof(float), colorData, GL_STATIC_DRAW);
+
+    // bind lineBufferHandle to GL_ARRAY_BUFFER target
+    //glBindBuffer(GL_ARRAY_BUFFER, lineBufferHandle);
+    //glBufferData(GL_ARRAY_BUFFER, 108 * sizeof(float), lineData, GL_STATIC_DRAW);
 
     // Create and set-up the vertex array object
     glGenVertexArrays( 1, &vaoHandle );
@@ -67,6 +75,7 @@ void SceneBasic::CreateVBO()
        such as glDrawArrays */
     glEnableVertexAttribArray(0);  // Vertex position
     glEnableVertexAttribArray(1);  // Vertex color
+    //glEnableVertexAttribArray(2);  // Vertex line
 
     glBindBuffer(GL_ARRAY_BUFFER, positionBufferHandle);
 
@@ -77,6 +86,31 @@ void SceneBasic::CreateVBO()
 
     glBindBuffer(GL_ARRAY_BUFFER, colorBufferHandle);
     glVertexAttribPointer( 1, 3, GL_FLOAT, GL_FALSE, 0, 0);
+
+
+    for(int i=0; i<6; i++)
+        lineData[i] = 0.0;
+
+    // Create and populate the buffer objects
+    GLuint vboLineHandles[1];
+    glGenBuffers(1, vboLineHandles);
+
+    lineBufferHandle = vboLineHandles[0];
+    glBindBuffer(GL_ARRAY_BUFFER, lineBufferHandle);
+    // creates and initializes GL_ARRAY_BUFFER buffer object's data store
+    glBufferData(GL_ARRAY_BUFFER, 6 * sizeof(float), lineData, GL_STATIC_DRAW);
+
+
+    /* enables the generic vertex attribute array
+       the values in the generic vertex attribute array will be accessed
+       and used for rendering when calls are made to vertex array commands
+       such as glDrawArrays */
+    glEnableVertexAttribArray(0);
+
+
+    // line
+    glBindBuffer(GL_ARRAY_BUFFER, lineBufferHandle);
+    glVertexAttribPointer( 0, 3, GL_FLOAT, GL_FALSE, 0, 0);
 }
 
 
@@ -185,11 +219,17 @@ void SceneBasic::initScene()
 
 void SceneBasic::update( float t )
 {
-    while(angle < t)
+    if(angle < t)
     {
+        qDebug() << angle;
+        qDebug() << t;
         angle += 1.0f;
         if( angle >= 360.0f)
-            angle -= 360.0f;
+        {
+            //angle -= 360.0f;
+            t -= 360.0f;
+
+        }
     }
 }
 
@@ -199,9 +239,31 @@ void SceneBasic::setMatrices()
     model = mat4(1.0f);
     view = glm::lookAt(eye, direction, vec3(0.0f,1.0f,0.0f));
 
-    rotationMatrix = glm::rotate(mat4(1.0f),glm::radians(angle),vec3(1.0f,1.0f,0.0f));
+    // Rotation Matrix
+    mat4 F = glm::translate(mat4(1.0f), vec3(-bVector[0], -bVector[1], -bVector[2]));
+    mat4 F_1 = glm::translate(mat4(1.0f), bVector);
 
-    mat4 mv = view * model;
+    float z_angle = glm::atan(dVector[1] / dVector[0]);
+    double v = glm::sqrt(dVector[0]*dVector[0] + dVector[1]*dVector[1]);
+    mat4 G = mat4(1/v) * glm::rotate(mat4(1.0f), glm::radians(z_angle), vec3(0.0f, 0.0f, 1.0f));
+    mat4 G_1 = mat4(1/v) * glm::rotate(mat4(1.0f), glm::radians(-z_angle), vec3(0.0f, 0.0f, 1.0f));
+
+    float y_angle = glm::atan(v/dVector[2]);
+    double w = glm::sqrt(dVector[0]*dVector[0] + dVector[1]*dVector[1] + dVector[2]*dVector[2]);
+    mat4 H = mat4(1/w) * glm::rotate(mat4(1.0f), glm::radians(y_angle), vec3(0.0f, 1.0f, 0.0f));
+    mat4 H_1 = mat4(1/w) * glm::rotate(mat4(1.0f), glm::radians(-y_angle), vec3(0.0f, 1.0f, 0.0f));
+
+    mat4 W = glm::rotate(mat4(1.0f), glm::radians(angle), vec3(0.0f, 0.0f, 1.0f));
+
+    rotationMatrix = F_1 * G_1 * H_1 * W * H * G * F;
+
+    // end of Rotation Matrix
+
+    //rotationMatrix = glm::rotate(mat4(1.0f),glm::radians(angle),vec3(0.0f,0.0f,1.0f));
+
+    //mat4 mv = view * model;
+    mat4 mv = view * rotationMatrix * model;
+
     prog.setUniform("ModelViewMatrix", mv);
     prog.setUniform("MVP", projection * mv);
 }
@@ -224,7 +286,17 @@ void SceneBasic::render()
        36 specifies the number of indices to be rendered. */
 
     setMatrices();
+
+    glBindBuffer(GL_ARRAY_BUFFER, positionBufferHandle);
+    glEnableVertexAttribArray(0);
+    glVertexAttribPointer( 0, 3, GL_FLOAT, GL_FALSE, 0, 0);
     glDrawArrays(GL_TRIANGLES, 0, 36 );
+
+    // bind lineBufferHandle to GL_ARRAY_BUFFER target
+    glBindBuffer(GL_ARRAY_BUFFER, lineBufferHandle);
+    glEnableVertexAttribArray(0);
+    glVertexAttribPointer( 0, 3, GL_FLOAT, GL_FALSE, 0, 0);
+    glDrawArrays(GL_LINES, 0, 2);
 }
 
 void SceneBasic::resize(int w, int h)
@@ -291,10 +363,26 @@ void SceneBasic::setDirection(double directionVs[])
     direction = vec3(directionVs[0], directionVs[1], directionVs[2]);
 }
 
-void SceneBasic::setLine(double lineVs[])
+void SceneBasic::setLineVector(double bvector[], double dvector[])
 {
-    line = vec3(lineVs[0], lineVs[1], lineVs[2]);
+    bVector = vec3(bvector[0], bvector[1], bvector[2]);
+    dVector = vec3(dvector[0], dvector[1], dvector[2]);
+
+    for(int i=0; i<3; i++)
+    {
+        lineData[i] = bVector[i];
+    }
+
+    for(int i=0; i<3; i++)
+    {
+        lineData[i+3] = 100*dVector[i];
+    }
+
+    glBindBuffer(GL_ARRAY_BUFFER,lineBufferHandle);
+    glBufferSubData(GL_ARRAY_BUFFER, 0, 6*sizeof(GLfloat), lineData);
+    render();
 }
+
 
 void SceneBasic::setAngle(double angle)
 {

@@ -17,13 +17,22 @@ private:
     SceneBasic *scene;
     double eyeVs[3];
     double directionVs[3];
-    double line[3];
+    double bVector[3];
+    double dVector[3];
+    float angle_f;
+
+    double alpha;
+    double beta;
+    double distance;
+    QPoint lastMousePosition;
+
 public:
     MainView( const QGLFormat & format, QWidget *parent = 0 );
     void setEye(double x, double y, double z);
     void setDirection(double x, double y, double z);
-    void setLine(double x, double y, double z);
-
+    void setBVector(double x, double y, double z);
+    void setDVector(double x, double y, double z);
+    void setAngle(float angle_f);
 protected:
     void initializeGL();
     void paintGL();

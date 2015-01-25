@@ -24,10 +24,12 @@ private:
 
     QGridLayout *lPanelLayout;
     QDoubleSpinBox *angleValue;
-    QDoubleSpinBox *xValue;
-    QDoubleSpinBox *yValue;
-    QDoubleSpinBox *zValue;
-    QString string;
+    QDoubleSpinBox *bXValue;
+    QDoubleSpinBox *bYValue;
+    QDoubleSpinBox *bZValue;
+    QDoubleSpinBox *dXValue;
+    QDoubleSpinBox *dYValue;
+    QDoubleSpinBox *dZValue;
 public:
     LinePanel(MainView *glView);
     void init();

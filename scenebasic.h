@@ -13,11 +13,15 @@ private:
     int width, height;
     GLuint vboHandles[2];
     GLuint vaoHandle;
+    GLuint positionBufferHandle;
+    GLuint lineBufferHandle;
     float angle;
+    float lineData[6];
 
     vec3 eye;
     vec3 direction;
-    vec3 line;
+    vec3 bVector;
+    vec3 dVector;
 
     mat4 rotationMatrix;
     GLSLProgram prog;
@@ -45,7 +49,7 @@ public:
 
     void setEye(double eyeVs[]);
     void setDirection(double directionVs[]);
-    void setLine(double lineVs[]);
+    void setLineVector(double bvector[], double dvector[]);
     void setAngle(double angle);
 };
 

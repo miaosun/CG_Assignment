@@ -7,6 +7,8 @@
 using std::cout;
 using std::endl;
 
+#include <QMouseEvent>
+#include <QWheelEvent>
 
 MainView::MainView(const QGLFormat & format, QWidget *parent) : QGLWidget(format, parent)
 {
@@ -63,9 +65,7 @@ void MainView::resizeGL(int w, int h ) {
 }
 
 void MainView::startLineRotation() { //TODO: modify function
-
-    qDebug() << "Inside startLineRotation()";
-    scene->setLine(line);
+    scene->setLineVector(bVector, dVector);
 }
 
 void MainView::viewPosition() {
@@ -78,10 +78,13 @@ void MainView::defaultView() {
     setDirection(0, 0, -1);
     scene->setEye(eyeVs);
     scene->setDirection(directionVs);
+    this->setAngle(0.0f);
+    scene->setAngle(0.0f);
+
 }
 
 void MainView::timerUpdate() {
-    scene->update(0.0f);
+    scene->update(angle_f);
     updateGL();
 }
 
@@ -99,9 +102,22 @@ void MainView::setDirection(double x, double y, double z)
     this->directionVs[2] = z;
 }
 
-void MainView::setLine(double x, double y, double z)
+void MainView::setBVector(double x, double y, double z)
 {
-    this->line[0] = x;
-    this->line[1] = y;
-    this->line[2] = z;
+    this->bVector[0] = x;
+    this->bVector[1] = y;
+    this->bVector[2] = z;
 }
+
+void MainView::setDVector(double x, double y, double z)
+{
+    this->dVector[0] = x;
+    this->dVector[1] = y;
+    this->dVector[2] = z;
+}
+
+void MainView::setAngle(float angle)
+{
+    this->angle_f = angle;
+}
+
