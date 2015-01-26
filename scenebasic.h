@@ -1,13 +1,12 @@
 #ifndef SCENEBASIC_H
 #define SCENEBASIC_H
 
-#include "scene.h"
 #include "/usr/include/GL/glew.h"
 #include "glslprogram.h"
 #include "../glm/glm.hpp"
 using glm::mat4;
 
-class SceneBasic : public Scene
+class SceneBasic
 {
 private:
     int width, height;

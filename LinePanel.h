@@ -8,8 +8,6 @@
 #include <QHBoxLayout>
 #include <QVBoxLayout>
 #include <QPushButton>
-#include <QSignalMapper>
-#include <QString>
 #include <QDebug>
 #include <QDoubleSpinBox>
 

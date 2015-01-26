@@ -1,5 +1,5 @@
 #include "scenebasic.h"
-
+#define GLM_FORCE_RADIANS
 #include <cstdio>
 #include <cstdlib>
 
@@ -205,11 +205,6 @@ void SceneBasic::initScene()
 
     prog.printActiveUniforms();
 
-    //model = mat4(1.0f);
-    //float ang = 0; //-35.0;
-    //model *= glm::rotate(mat4(1.0f),ang, vec3(1.0f,0.0f,0.0f));
-    //model *= glm::rotate(mat4(1.0f),-ang, vec3(0.0f,1.0f,0.0f));
-    //view = glm::lookAt(eye, direction, vec3(0.0f,1.0f,0.0f));
     projection = mat4(1.0f);
 
     glClearColor( 0.0, 0.0, 0.0, 1.0 );
@@ -221,8 +216,6 @@ void SceneBasic::update( float t )
 {
     if(angle < t)
     {
-        qDebug() << angle;
-        qDebug() << t;
         angle += 1.0f;
         if( angle >= 360.0f)
         {
@@ -241,27 +234,19 @@ void SceneBasic::setMatrices()
 
     // Rotation Matrix
     mat4 F = glm::translate(mat4(1.0f), vec3(-bVector[0], -bVector[1], -bVector[2]));
-    mat4 F_1 = glm::translate(mat4(1.0f), bVector);
+    mat4 F_1 = glm::inverse(F);
+    mat4 G = glm::rotate(mat4(1.0f),glm::atan(dVector[1], -dVector[0]),vec3(0.0f,0.0f,1.0f));
+    mat4 G_1 = glm::inverse(G);
+    mat4 H = glm::rotate(mat4(1.0f),glm::atan(glm::sqrt(dVector[0]*dVector[0] + dVector[1]*dVector[1]), dVector[2]),vec3(0.0f,1.0f,0.0f));
+    mat4 H_1 = glm::inverse(H);
+    mat4 W = glm::rotate(mat4(1.0f), glm::radians(angle),vec3(0.0f,0.0f,1.0f));
+    mat4 W_1 = glm::inverse(W);
 
-    float z_angle = glm::atan(dVector[1] / dVector[0]);
-    double v = glm::sqrt(dVector[0]*dVector[0] + dVector[1]*dVector[1]);
-    mat4 G = mat4(1/v) * glm::rotate(mat4(1.0f), glm::radians(z_angle), vec3(0.0f, 0.0f, 1.0f));
-    mat4 G_1 = mat4(1/v) * glm::rotate(mat4(1.0f), glm::radians(-z_angle), vec3(0.0f, 0.0f, 1.0f));
+    rotationMatrix = F_1 * G_1 * H_1 * W_1 * H * G * F;
 
-    float y_angle = glm::atan(v/dVector[2]);
-    double w = glm::sqrt(dVector[0]*dVector[0] + dVector[1]*dVector[1] + dVector[2]*dVector[2]);
-    mat4 H = mat4(1/w) * glm::rotate(mat4(1.0f), glm::radians(y_angle), vec3(0.0f, 1.0f, 0.0f));
-    mat4 H_1 = mat4(1/w) * glm::rotate(mat4(1.0f), glm::radians(-y_angle), vec3(0.0f, 1.0f, 0.0f));
-
-    mat4 W = glm::rotate(mat4(1.0f), glm::radians(angle), vec3(0.0f, 0.0f, 1.0f));
-
-    rotationMatrix = F_1 * G_1 * H_1 * W * H * G * F;
-
-    // end of Rotation Matrix
 
     //rotationMatrix = glm::rotate(mat4(1.0f),glm::radians(angle),vec3(0.0f,0.0f,1.0f));
 
-    //mat4 mv = view * model;
     mat4 mv = view * rotationMatrix * model;
 
     prog.setUniform("ModelViewMatrix", mv);
@@ -368,14 +353,16 @@ void SceneBasic::setLineVector(double bvector[], double dvector[])
     bVector = vec3(bvector[0], bvector[1], bvector[2]);
     dVector = vec3(dvector[0], dvector[1], dvector[2]);
 
+    float u = 200.0f;
+
     for(int i=0; i<3; i++)
     {
-        lineData[i] = bVector[i];
+        lineData[i] = bVector[i] - u * dVector[i];
     }
 
     for(int i=0; i<3; i++)
     {
-        lineData[i+3] = 100*dVector[i];
+        lineData[i+3] = bVector[i] + u * dVector[i];
     }
 
     glBindBuffer(GL_ARRAY_BUFFER,lineBufferHandle);

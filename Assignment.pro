@@ -27,7 +27,6 @@ HEADERS  += \
     glslprogram.h \
     glutils.h \
     mainview.h \
-    scene.h \
     scenebasic.h \
     viewpanel.h \
     linepanel.h \

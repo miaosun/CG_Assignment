@@ -50,7 +50,7 @@ void ViewPanel::init() {
     vPanelLayout->addWidget(directZValue, 1, 5, 1, 1);
 
     QPushButton *changeViewButton = new QPushButton("Change View Position");
-    vPanelLayout->addWidget(changeViewButton);
+    vPanelLayout->addWidget(changeViewButton, 2, 5);
     //lPanelLayout->setAlignment(startRotationButton, Qt::AlignHCenter);
 
     QObject::connect(changeViewButton, SIGNAL(clicked()), this, SLOT(setValues()));

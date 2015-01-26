@@ -18,11 +18,8 @@ MainView::MainView(const QGLFormat & format, QWidget *parent) : QGLWidget(format
     timer = new QTimer(this);
     connect( timer, SIGNAL(timeout()), this, SLOT(timerUpdate()) );
     timer->start(50);
-    /*
-    alpha = 0.0;
-    beta = 0.0;
-    distance = 2.5;
-*/
+    angle_f = 0.0;
+
     this->setMinimumSize(800,600);
 }
 
@@ -75,12 +72,12 @@ void MainView::viewPosition() {
 
 void MainView::defaultView() {
     setEye(0, 0, 2);
-    setDirection(0, 0, -1);
+    setDirection(0, 0, 0);
     scene->setEye(eyeVs);
     scene->setDirection(directionVs);
     this->setAngle(0.0f);
     scene->setAngle(0.0f);
-
+    scene->setLineVector(directionVs, directionVs);
 }
 
 void MainView::timerUpdate() {
